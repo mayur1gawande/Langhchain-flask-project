@@ -8,8 +8,6 @@ from langchain.memory import ConversationBufferMemory
 from langchain.prompts import MessagesPlaceholder
 from langchain.agents import Tool,initialize_agent
 
-GOOGLE_API_KEY = "AIzaSyDBCf3SGqFkGm-nX3LN91cPUSFyBrDyRsU"
-
 search_engine = DuckDuckGoSearchRun()
 wikipedia_search = WikipediaAPIWrapper()
 model = ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model='gemini-2.5-pro',temperature=1.0,)
@@ -48,4 +46,5 @@ agent = initialize_agent(
 def run_agent(query,explanation_length):
     modified_query = f"{query},\n Please provide a {explanation_length} explanation."
     response = agent.run(modified_query)
+
     return response
