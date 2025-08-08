@@ -13,7 +13,7 @@ load_dotenv()
 
 search_engine = DuckDuckGoSearchRun()
 wikipedia_search = WikipediaAPIWrapper()
-model = ChatGoogleGenerativeAI(api_key=GOOGLE_API_KEY,model='gemini-2.5-pro',temperature=1.0,)
+model = ChatGoogleGenerativeAI(model='gemini-2.5-pro',temperature=1.0,)
 
 search_tool = Tool(
     name= 'DuckDuckGo Search',
@@ -51,4 +51,5 @@ def run_agent(query,explanation_length):
     response = agent.run(modified_query)
 
     return response
+
 
