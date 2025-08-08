@@ -1,0 +1,201 @@
+body {
+    margin: 0;
+    background-color: #0d1117;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 1rem; /* Added padding to give header some space */
+}
+
+header{
+    width: 90%;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 0.1rem;
+  align-self: flex-start;
+  gap: 10px; 
+   width: fit-content; 
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.chat-box {
+    width: 90%;
+    flex: 1;
+    height: 85vh; /* Adjusted height */
+    max-width: 850px;
+    background-color: #161b22;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-container {
+    flex: 1; 
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    padding: 0 0.5rem;
+    scroll-behavior: smooth;
+  
+}
+
+.chat-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.chat-container::-webkit-scrollbar-track {
+    background: #21262d; /* Color of the scrollbar track */
+    border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+    background: #30363d; /* Color of the scrollbar thumb */
+    border-radius: 10px;
+}
+.chat-container::-webkit-scrollbar-thumb:hover {
+    background: #444c56; /* Color of the scrollbar thumb on hover */
+}
+
+/* Messages */
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    max-width: 85%; /* Give messages a max-width */
+    margin-top: 0.5rem;
+}
+
+.message.bot {
+    color: #d1d5db;
+}
+
+.message.bot p {
+    background-color: #21262d;
+}
+
+.message.user {
+    justify-content: flex-end;
+    align-self: flex-end; /* Aligns user messages to the right */
+}
+
+.message.user p {
+    background-color: #2383e2;
+    color: white;
+}
+
+.message p {
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    line-height: 1.5;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-top: 4px;
+}
+
+/* Input bar */
+.input-form {
+    display: flex;
+    gap: 0.5rem;
+    border-top: 1px solid #30363d; /* This now acts as a separator */
+    padding-top: 1rem;
+    margin-top: 1rem; /* Add space between messages and input */
+}
+
+.input-form input {
+    flex: 1;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: white;
+    font-size: 1rem;
+}
+
+.input-form input::placeholder {
+    color: #6e7681;
+}
+
+.input-form button {
+    background-color: #2383e2;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.input-form select {
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 0.75rem 0.5rem; /* Adjusted padding */
+    color: white;
+    font-size: 0.9rem; /* Slightly smaller font for select */
+    cursor: pointer;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding-top: 0.75rem; /* Give it some space */
+    color: #8b949e;/* REMOVED background and border to make it simple text */
+}
+
+.subheading {
+    text-align: center;
+    font-size: 0.85rem; /* Made it a bit smaller */
+    color: #8b949e;
+    margin: 0;
+}
+.external-link-icon {
+    width: 16px; /* Adjust size as needed */
+    height: 16px;
+    vertical-align: middle; /* Aligns with text */
+    margin-left: 5px; /* Space between text and icon */
+    opacity: 0.7; /* Make it slightly transparent */
+    transition: opacity 0.3s ease; /* Smooth transition on hover */
+}
+
+.external-link-icon:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+/* If you have a specific class for your external links */
+a.external-link img {
+    border: 2px solid #2383e2; /* Example border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* When the link is hovered, change the image's style */
+a.external-link:hover img {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    transition: transform 0.3s ease; /* Smooth transition */
+}

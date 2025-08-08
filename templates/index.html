@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Research Assistant</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}" />
+    </head>
+    <body>
+        <header>
+            <img src="{{ url_for('static', filename='assistant.png') }}" class="logo-icon" />
+            <h1>AnalytIQ</h1>
+        </header>
+
+        <div class="chat-box">
+            <div class="chat-container" id="chat">
+                <div class="message bot">
+                    <img src="{{ url_for('static', filename='assistant.png') }}" class="avatar" />
+                    <p>Hello! How can I assist you?</p>
+                </div>
+            </div>
+
+            <form class="input-form" onsubmit="sendMessage(event)">
+                <select id="explanation-length-select">
+                    <option value="medium">Medium</option>
+                    <option value="short">Short</option>
+                    <option value="long">Long</option>
+                </select>
+                <input
+                    id="message-input"
+                    type="text"
+                    placeholder="Type your message..."
+                    autocomplete="off"
+                />
+                <button type="submit">SEND</button>
+            </form>
+
+            <footer>
+                <p class="subheading">madeby: mayurGawande
+                <a href="https://www.linkedin.com/in/mayurgawande/" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ url_for('static', filename='linkedin_icon.jpeg') }}" class="external-link-icon">
+                </a>
+                <a href="https://github.com/mayur1gawande" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ url_for('static', filename='github_icon.png') }}" class="external-link-icon">
+                </a>
+                </p>
+            </footer>
+        </div>
+
+<script>
+    async function sendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById("message-input");
+      const chat = document.getElementById("chat");
+      const chatContainer = document.querySelector(".chat-container");
+      const explanationLengthSelect = document.getElementById("explanation-length-select");
+      const explanationLength = explanationLengthSelect.value;
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      // Append user message
+      const userDiv = document.createElement("div");
+      userDiv.className = "message user";
+      userDiv.innerHTML = `<p>${msg}</p>`;
+      chat.appendChild(userDiv);
+      input.value = "";
+
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      // Send message to Flask backend
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg })
+        });
+
+        const data = await response.json();
+
+        // Append assistant message
+        const botDiv = document.createElement("div");
+        botDiv.className = "message bot";
+        botDiv.innerHTML = `
+          <img src="{{ url_for('static', filename='assistant.png') }}" class="avatar" />
+          <p>${data.response}</p>
+        `;
+        chat.appendChild(botDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      } catch (err) {
+        console.error("Error contacting assistant:", err);
+      }
+    }
+</script>
+
+    </body>
+</html>
