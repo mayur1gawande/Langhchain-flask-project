@@ -7,9 +7,6 @@ from langchain_community.utilities import WikipediaAPIWrapper
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import MessagesPlaceholder
 from langchain.agents import Tool,initialize_agent
-from dotenv import load_dotenv
-
-load_dotenv()
 
 search_engine = DuckDuckGoSearchRun()
 wikipedia_search = WikipediaAPIWrapper()
@@ -51,5 +48,6 @@ def run_agent(query,explanation_length):
     response = agent.run(modified_query)
 
     return response
+
 
 
