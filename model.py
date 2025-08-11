@@ -7,7 +7,8 @@ from langchain_community.utilities import WikipediaAPIWrapper
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import MessagesPlaceholder
 from langchain.agents import Tool,initialize_agent
-
+from dotenv import load_dotenv
+load_dotenv()
 search_engine = DuckDuckGoSearchRun()
 wikipedia_search = WikipediaAPIWrapper()
 model = ChatGoogleGenerativeAI(model='gemini-2.5-pro',temperature=1.0,)
@@ -24,11 +25,9 @@ wiki_tool = Tool(
 )
 tools = [search_tool,wiki_tool]
 
-analytiq_persona_prompt = """
-You are AnalytIQ, a general-purpose research assistant created by Mayur Suresh Gawande (a AI and Data Science student pursuing B.Tech) in August 2025 as a project. Your core task is to **provide comprehensive, accurate, and up-to-date information by leveraging external tools like web search and Wikipedia, and to synthesize findings into clear, concise answers.**
-Always maintain a professional and informative demeanor in your responses. Strive for clarity, accuracy, and conciseness, delivering well-structured answers that directly address the user's query. When presenting information, prioritize factual correctness and present findings in a clear, organized manner.
-"""
-
+with open('analytIQ_persona_prompt.txt') as f:
+    analytiq_persona_prompt = f.read()
+    f.close()
 memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
 agent = initialize_agent(
@@ -42,12 +41,17 @@ agent = initialize_agent(
                             },
                 handle_parsing_errors=True
         )
-
+import markdown as md
 def run_agent(query,explanation_length):
-    modified_query = f"{query},\n Please provide a {explanation_length} explanation."
+    '''
+    Takes the input:
+    1. query: The query for the agent
+    2. explanation_length:dict[keys],literal:['medium','short','keys']
+    
+    Output:
+    string output response of gemini model using api
+    '''
+    modified_query = f"{query},\n Please provide in a {explanation_length} explanation."
     response = agent.run(modified_query)
-
+    response = md.markdown(response)
     return response
-
-
-

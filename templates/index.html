@@ -42,52 +42,6 @@
         </footer>
     </div>
 
-<script>
-    function scrollToBottom() {
-        const chatContainer = document.getElementById("chat");
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    async function sendMessage(e) {
-        e.preventDefault();
-        const input = document.getElementById("message-input");
-        const chat = document.getElementById("chat");
-        const explanationLength = document.getElementById("explanation-length-select").value;
-        const msg = input.value.trim();
-        if (!msg) return;
-
-        // Append user message
-        const userDiv = document.createElement("div");
-        userDiv.className = "message user";
-        userDiv.innerHTML = `<p>${msg}</p>`;
-        chat.appendChild(userDiv);
-        input.value = "";
-        scrollToBottom();
-
-        // Send to Flask backend
-        try {
-            const response = await fetch("/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: msg, explaination_length: explanationLength })
-            });
-
-            const data = await response.json();
-
-            // Append bot message
-            const botDiv = document.createElement("div");
-            botDiv.className = "message bot";
-            botDiv.innerHTML = `
-                <img src="{{ url_for('static', filename='assistant.png') }}" class="avatar" />
-                <p>${data.response}</p>
-            `;
-            chat.appendChild(botDiv);
-            scrollToBottom();
-
-        } catch (err) {
-            console.error("Error contacting assistant:", err);
-        }
-    }
-</script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script> 
 </body>
 </html>
