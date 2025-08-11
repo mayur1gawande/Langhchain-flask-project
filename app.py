@@ -15,7 +15,7 @@ def index():
 def chat():
     data = request.get_json()
     user_message = data.get('message')
-    explanation_length = data.get('explanation_length', 'medium')
+    explanation_length = data.get('explaination_length', 'medium')
     bot_response = run_agent(user_message,explanation_length)
 
     return jsonify({"response": str(bot_response)})
@@ -23,4 +23,5 @@ def chat():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=False,host='0.0.0.0',port=port)
+
 
